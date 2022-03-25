@@ -1,0 +1,6 @@
+*
+
+!.gitignore
+!nats-server.cmd
+!nats-server.sh
+!nats-server.conf
