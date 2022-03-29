@@ -191,16 +191,15 @@ user@box:~/sandbox/vue3-sse/nats$ uznip nats-server-v2.7.4-windows-amd64.zip
    > client@0.1.0 serve
    > export NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service serve
    
-    INFO  Starting development server...
+   INFO  Starting development server...
    98% after emitting CopyPlugin
    
-    DONE  Compiled successfully in 5304ms                                                                                                      7:15:13 p.m.
+   DONE  Compiled successfully in 5304ms                                                                                                      7:15:13 p.m.
    
+   App running at:
+   - Local:   http://localhost:8080/ 
+   - Network: http://192.168.1.1:8080/
    
-     App running at:
-     - Local:   http://localhost:8080/ 
-     - Network: http://192.168.1.1:8080/
-   
-     Note that the development build is not optimized.
-     To create a production build, run npm run build.
+   Note that the development build is not optimized.
+   To create a production build, run npm run build.
    ```
