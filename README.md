@@ -152,7 +152,7 @@ user@box:~/sandbox/vue3-sse/nats$ uznip nats-server-v2.7.4-windows-amd64.zip
    [7090] 2022/03/28 19:01:15.638501 [INF] Starting http monitor on 0.0.0.0:44224
    [7090] 2022/03/28 19:01:15.638719 [INF] Listening for client connections on 0.0.0.0:44222
    [7090] 2022/03/28 19:01:15.638764 [DBG] Get non local IPs for "0.0.0.0"
-   [7090] 2022/03/28 19:01:15.639248 [DBG]   ip=192.168.101.120
+   [7090] 2022/03/28 19:01:15.639248 [DBG]   ip=192.168.1.1
    [7090] 2022/03/28 19:01:15.639341 [DBG]   ip=10.18.211.1
    [7090] 2022/03/28 19:01:15.639444 [DBG]   ip=172.17.0.1
    [7090] 2022/03/28 19:01:15.639467 [INF] Server is ready
@@ -204,7 +204,7 @@ user@box:~/sandbox/vue3-sse/nats$ uznip nats-server-v2.7.4-windows-amd64.zip
    To create a production build, run npm run build.
    ```
    
-   There is known bug with NOde.JS v17. If you encounter error message below, please replace client/package.json with content of client/package.json.linux.v17 or package.json.windows.v17.
+   There is known bug with Node.JS v17. If you encounter error message below, please replace client/package.json with content of client/package.json.linux.v17 or package.json.windows.v17.
    
    ```bash
    10% building 2/5 modules 3 active ...dbox/vue3-sse/client/node_modules/eslint-loader/index.js??ref--14-0!/home/apis/sandbox/vue3-sse/client/src/main.jsnode:internal/crypto/hash:67
