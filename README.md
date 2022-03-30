@@ -6,7 +6,7 @@ Multiple UI applications could be connected simultaneously. Ensure that you are 
 
 ![](docs/UI%20Screen.png)
 
-###### Technology stack:
+#### Technology stack:
 
 * Go languge based services for frontend and backend
 
@@ -14,7 +14,7 @@ Multiple UI applications could be connected simultaneously. Ensure that you are 
 
 * NATS message bus
 
-###### Protocols
+#### Protocols
 
 * HTTP/HTTPS REST like protocol between Web UI and Frontend Service
   
@@ -42,14 +42,14 @@ Multiple UI applications could be connected simultaneously. Ensure that you are 
 
 ## How to build and example code and download NATS
 
-Please ensure that you have latest Go installed. If not please follow installation instructions from this page: [Downloads - The Go Programming Language](https://go.dev/dl/)
+##### Please ensure that you have latest Go installed. If not please follow installation instructions from this page: [Downloads - The Go Programming Language](https://go.dev/dl/)
 
 ```bash
 user@box:~/sandbox/vue3-sse$ go version
 go version go1.17.1 linux/amd64
 ```
 
-Also ensure that latest Node.JS and NPM are installed. If not please follow installation instructions from this page: [Download | Node.js](https://nodejs.org/en/download/)
+##### Also ensure that latest Node.JS and NPM are installed. If not please follow installation instructions from this page: [Download | Node.js](https://nodejs.org/en/download/)
 
 ```bash
 user@box:~/sandbox/vue3-sse$ node --version
@@ -59,7 +59,7 @@ user@box:~/sandbox/vue3-sse$ npm --version
 8.3.1
 ```
 
-Build backend-service.
+##### Build backend-service.
 
 ```bash
 user@box:~/sandbox/vue3-sse$ cd backend-service/
@@ -78,7 +78,7 @@ drwxrwxr-x 8 apis apis    4096 Mar 28 18:50 ../
 -rw-rw-r-- 1 apis apis    3470 Mar 28 18:50 main.go
 ```
 
-Build frontend-service.
+##### Build frontend-service.
 
 ```bash
 user@box:~/sandbox/vue3-sse$ cd frontend-service/
@@ -94,7 +94,7 @@ drwxrwxr-x 8 apis apis    4096 Mar 28 18:50 ../
 -rw-rw-r-- 1 apis apis    3470 Mar 28 18:50 main.go
 ```
 
-Build client.
+##### Build client.
 
 ```bash
 user@box:~/sandbox/vue3-sse$ cd client/
@@ -136,7 +136,7 @@ user@box:~/sandbox/vue3-sse/nats$ uznip nats-server-v2.7.4-windows-amd64.zip
 
 ## How to run example code
 
-1. ##### Start NATS in separate console window or tab.
+1. #### Start NATS in separate console window or tab.
    
    ```bash
    user@box:~/sandbox/vue3-sse$ cd nats/
@@ -160,7 +160,7 @@ user@box:~/sandbox/vue3-sse/nats$ uznip nats-server-v2.7.4-windows-amd64.zip
    [7090] 2022/03/28 19:01:53.411256 [DBG] 127.0.0.1:49464 - cid:4 - "v1.13.0:go:Backend Service" - Client Ping Timer
    ```
 
-2. ##### Start backend-service in separate console window or tab.
+2. #### Start backend-service in separate console window or tab.
    
    ```bash
    user@box:~/sandbox/vue3-sse$ cd backend-service/
@@ -172,7 +172,7 @@ user@box:~/sandbox/vue3-sse/nats$ uznip nats-server-v2.7.4-windows-amd64.zip
    INFO[0010] Publishing TimeEvent: 2022-03-28T19:02:01-04:00
    ```
 
-3. ##### Start frontend-service in separate console window or tab.
+3. #### Start frontend-service in separate console window or tab.
    
    ```bash
    user@box:~/sandbox/vue3-sse$ cd frontend-service/
@@ -182,7 +182,7 @@ user@box:~/sandbox/vue3-sse/nats$ uznip nats-server-v2.7.4-windows-amd64.zip
    INFO[0000] Starting HTTP server                   
    ```
 
-4. ##### Start client development server in separate console window or tab.
+4. #### Start client development server in separate console window or tab.
    
    ```bash
    user@box:~/sandbox/vue3-sse$ cd client/
@@ -202,4 +202,14 @@ user@box:~/sandbox/vue3-sse/nats$ uznip nats-server-v2.7.4-windows-amd64.zip
    
    Note that the development build is not optimized.
    To create a production build, run npm run build.
+   ```
+   
+   There is known bug with NOde.JS v17. If you encounter error message below, please replace client/package.json with content of client/package.json.linux.v17 or package.json.windows.v17.
+   
+   ```bash
+   10% building 2/5 modules 3 active ...dbox/vue3-sse/client/node_modules/eslint-loader/index.js??ref--14-0!/home/apis/sandbox/vue3-sse/client/src/main.jsnode:internal/crypto/hash:67
+   this[kHandle] = new _Hash(algorithm, xofLen);
+                  ^
+   
+   Error: error:0308010C:digital envelope routines::unsupported
    ```
