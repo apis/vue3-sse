@@ -2,16 +2,16 @@ package main
 
 import (
 	"encoding/json"
+	"flag"
 	"fmt"
-	"github.com/nats-io/nats.go"
-	log "github.com/sirupsen/logrus"
 	"net/http"
 	"os"
 	"os/signal"
 	"time"
-)
 
-const url = "nats://127.0.0.1:44222"
+	"github.com/nats-io/nats.go"
+	log "github.com/sirupsen/logrus"
+)
 
 var natsConnection *nats.Conn
 var natsSubjectTimeEvent = "time-event"
@@ -110,18 +110,34 @@ func handleTimeEvent() http.HandlerFunc {
 func main() {
 	log.Info("Starting up frontend service")
 
+	var natsUrlFlag = flag.String("nats_url", "nats://127.0.0.1:4222", "NATS server endpoint")
+	flag.Parse()
+
 	exitChannel := make(chan os.Signal, 1)
 	signal.Notify(exitChannel, os.Interrupt)
 
 	options := nats.Options{
-		Url:  url,
+		Url:  *natsUrlFlag,
 		Name: "Frontend Service",
 	}
 
 	log.Info("Connecting to NATS")
 
 	var err error
-	natsConnection, err = options.Connect()
+	for index := 0; index < 5; index++ {
+		if index > 0 {
+			time.Sleep(time.Second)
+		}
+
+		log.Info("Attempting to connect to NATS")
+		natsConnection, err = options.Connect()
+		if err == nil {
+			break
+		}
+
+		log.Errorf("NATS connection failed [%v]", err)
+	}
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -136,7 +152,7 @@ func main() {
 		http.HandleFunc("/time-event", handleTimeEvent())
 		http.HandleFunc("/get-time", handleGetTime())
 
-		err := http.ListenAndServe("localhost:13011", nil)
+		err := http.ListenAndServe(":13011", nil)
 		log.Fatal("HTTP server error: ", err)
 	}()
 

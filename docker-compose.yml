@@ -1,0 +1,32 @@
+version: '3'
+services:
+  nats:
+    image: "nats:latest"
+    hostname: nats
+    command: --port 44222
+    expose:
+      - "44222"
+  backend-service:
+    build:
+      context: ./backend-service
+      dockerfile: Dockerfile
+    command: -nats_url nats://nats:44222
+    links:
+      - nats
+  frontend-service:
+    build:
+      context: ./frontend-service
+      dockerfile: Dockerfile
+    command: -nats_url nats://nats:44222
+    ports:
+      - "13011:13011"
+    links:
+      - nats
+  vue3app:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    links:
+      - frontend-service

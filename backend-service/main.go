@@ -2,14 +2,14 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/nats-io/nats.go"
-	log "github.com/sirupsen/logrus"
+	"flag"
 	"os"
 	"os/signal"
 	"time"
-)
 
-const url = "nats://127.0.0.1:44222"
+	"github.com/nats-io/nats.go"
+	log "github.com/sirupsen/logrus"
+)
 
 var natsConnection *nats.Conn
 var natsSubjectTimeEvent = "time-event"
@@ -17,6 +17,9 @@ var natsSubjectGetTime = "get-time"
 
 func main() {
 	log.Info("Starting up backend service")
+
+	var natsUrlFlag = flag.String("nats_url", "nats://127.0.0.1:4222", "NATS server endpoint")
+	flag.Parse()
 
 	exitChannel := make(chan os.Signal, 1)
 	signal.Notify(exitChannel, os.Interrupt)
@@ -29,14 +32,27 @@ func main() {
 	}()
 
 	options := nats.Options{
-		Url:  url,
+		Url:  *natsUrlFlag,
 		Name: "Backend Service",
 	}
 
 	log.Info("Connecting to NATS")
 
 	var err error
-	natsConnection, err = options.Connect()
+	for index := 0; index < 5; index++ {
+		if index > 0 {
+			time.Sleep(time.Second)
+		}
+
+		log.Info("Attempting to connect to NATS")
+		natsConnection, err = options.Connect()
+		if err == nil {
+			break
+		}
+
+		log.Errorf("NATS connection failed [%v]", err)
+	}
+
 	if err != nil {
 		log.Fatal(err)
 	}
