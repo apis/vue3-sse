@@ -1,6 +1,7 @@
 .idea
 
 # Binaries for programs and plugins
+frontend-service
 *.exe
 *.exe~
 *.dll
