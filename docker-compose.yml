@@ -4,7 +4,7 @@ services:
     image: "caddy:2"
     hostname: caddy
     ports:
-      - "8081:8081"
+      - "8000:8070"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
   nats:
@@ -25,9 +25,9 @@ services:
     build:
       context: ./frontend-service
       dockerfile: Dockerfile
-    command: -nats_url nats://nats:44222 -port 18090
+    command: -nats_url nats://nats:44222 -port 8090
     expose:
-      - "13011"
+      - "8090"
     links:
       - nats
   application:
