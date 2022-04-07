@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"strconv"
 	"time"
 
 	"github.com/nats-io/nats.go"
@@ -111,6 +112,8 @@ func main() {
 	log.Info("Starting up frontend service")
 
 	var natsUrlFlag = flag.String("nats_url", "nats://127.0.0.1:4222", "NATS server endpoint")
+	var portFlag = flag.Int("port", 8090, "Listen port")
+
 	flag.Parse()
 
 	exitChannel := make(chan os.Signal, 1)
@@ -152,7 +155,7 @@ func main() {
 		http.HandleFunc("/time-event", handleTimeEvent())
 		http.HandleFunc("/get-time", handleGetTime())
 
-		err := http.ListenAndServe(":13011", nil)
+		err := http.ListenAndServe(":"+strconv.Itoa(*portFlag), nil)
 		log.Fatal("HTTP server error: ", err)
 	}()
 

@@ -1,9 +1,16 @@
 version: '3'
 services:
+  caddy:
+    image: "caddy:2"
+    hostname: caddy
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
   nats:
-    image: "nats:latest"
+    image: "nats:2"
     hostname: nats
-    command: --port 44222
+    command: --port 44222 --server_name "My Server"
     expose:
       - "44222"
   backend-service:
@@ -14,19 +21,21 @@ services:
     links:
       - nats
   frontend-service:
+    hostname: frontend-service
     build:
       context: ./frontend-service
       dockerfile: Dockerfile
-    command: -nats_url nats://nats:44222
-    ports:
-      - "13011:13011"
+    command: -nats_url nats://nats:44222 -port 18090
+    expose:
+      - "13011"
     links:
       - nats
-  vue3app:
+  application:
+    hostname: application
     build:
       context: ./client
       dockerfile: Dockerfile
-    ports:
-      - "8080:8080"
+    expose:
+      - "8080"
     links:
       - frontend-service

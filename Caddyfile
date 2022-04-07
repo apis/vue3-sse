@@ -1,0 +1,15 @@
+http://127.0.0.1:8081
+
+
+route /api/* {
+  uri strip_prefix /api
+  reverse_proxy  http://frontend-service:18090 {
+      header_up X-Real-IP {remote}
+  }
+}
+
+route /* {
+  reverse_proxy  http://application:8080 {
+      header_up X-Real-IP {remote}
+  }
+}

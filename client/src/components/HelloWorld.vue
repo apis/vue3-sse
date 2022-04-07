@@ -28,7 +28,7 @@ export default {
     const actualColor = ref("")
 
     onMounted(async () => {
-      const response = await fetch('http://localhost:13011/get-time', {
+      const response = await fetch('/api/get-time', {
         method: 'GET'
       })
 
