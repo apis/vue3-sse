@@ -20,6 +20,3 @@ jobs:
     - name: Build the Docker image
       working-directory: ./backend-service
       run: docker build . --file Dockerfile --tag $IMAGE_NAME:$(date +%s)
-      
-       
-      run:  docker build . --tag $IMAGE_NAME 
