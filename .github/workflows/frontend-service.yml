@@ -1,13 +1,13 @@
 name: Frontend Service Build
 
 on: 
-  push:
-    branches: [ master ]
-    paths:
-    - 'frontend-service/**'
+#  push:
+#    branches: [ master ]
+#    paths:
+#    - 'frontend-service/**'
     
-  pull_request:
-    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
     
   workflow_dispatch:
 
