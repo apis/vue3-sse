@@ -1,0 +1,25 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  IMAGE_NAME: backend-service
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      working-directory: ./backend-service
+      run: docker build . --file Dockerfile --tag $IMAGE_NAME:$(date +%s)
+      
+       
+      run:  docker build . --tag $IMAGE_NAME 
