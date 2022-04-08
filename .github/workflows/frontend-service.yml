@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
 
 env:
-  IMAGE_NAME: frontend-service
+  IMAGE_NAME: cloud-demo-frontend-service
 
 jobs:
 
