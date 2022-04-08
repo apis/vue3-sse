@@ -1,6 +1,6 @@
 name: Frontend Service Build
 
-on:
+on: 
   push:
     branches: [ master ]
     paths:
@@ -8,6 +8,8 @@ on:
     
   pull_request:
     branches: [ master ]
+    
+  workflow_dispatch:
 
 env:
   IMAGE_NAME: frontend-service
