@@ -21,7 +21,9 @@ else
 	EXTRACT_NATS_CMD := tar -xf $(NATS_ARCHIVE_NAME)
 endif
 
-build: backend_service frontend_service
+.PHONY: application
+
+build: backend_service frontend_service application
 
 backend_service:
 	cd backend-service && \
@@ -45,7 +47,7 @@ create_nats_folder:
 	mkdir nats || \
 	true
 
-third_parties: caddy nats
+download: caddy nats
 
 caddy: create_output_folder create_caddy_folder
 	cd $(output_folder)/caddy && \
@@ -60,3 +62,7 @@ nats: create_output_folder create_nats_folder
 	mv $(basename $(NATS_ARCHIVE_NAME))/* . && \
 	rm -r $(basename $(NATS_ARCHIVE_NAME)) && \
 	rm $(NATS_ARCHIVE_NAME)
+	
+application:
+	cd application && \
+	npm run build
