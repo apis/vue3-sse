@@ -21,15 +21,15 @@ else
 	EXTRACT_NATS_CMD := tar -xf $(NATS_ARCHIVE_NAME)
 endif
 
-.PHONY: application
+.PHONY: application backend-service frontend-service
 
-build: backend_service frontend_service application
+build: backend-service frontend-service application
 
-backend_service:
+backend-service:
 	cd backend-service && \
 	go build -o $(addsuffix $(BINARY_SUFFIX), ../$(output_folder)/backend-service)
 	
-frontend_service:
+frontend-service:
 	cd frontend-service && \
 	go build -o $(addsuffix $(BINARY_SUFFIX), ../$(output_folder)/frontend-service)
 

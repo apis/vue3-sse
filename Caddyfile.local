@@ -3,7 +3,7 @@
 }
 
 http://127.0.0.1:8070, http://localhost:8070 {
-	handle /api/* {
+	route /api/* {
 		uri strip_prefix /api
 		reverse_proxy http://localhost:8090 {
 			header_up X-Real-IP {remote}
