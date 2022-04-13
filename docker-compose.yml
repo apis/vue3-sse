@@ -1,16 +1,5 @@
 version: '3'
 services:
-  caddy:
-    restart: on-failure:3
-    image: "caddy:2"
-    hostname: caddy
-    ports:
-      - "8070:8070"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile:ro
-    links:
-      - application
-      - frontend-service
   nats:
     restart: on-failure:3
     image: "nats:2"
@@ -43,7 +32,9 @@ services:
     build:
       context: ./application
       dockerfile: Dockerfile
-    expose:
-      - "8080"
+    ports:
+      - "8070:8070"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
     links:
-      - frontend-service
+      - frontend-service                                                          

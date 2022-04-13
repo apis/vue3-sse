@@ -1,9 +1,5 @@
-FROM node:lts-alpine
+FROM node:lts-alpine as builder
 
-# install simple http server for serving static content
-RUN npm install -g http-server
-
-# make the 'app' folder the current working directory
 WORKDIR /app
 
 # copy both 'package.json' and 'package-lock.json' (if available)
@@ -20,6 +16,12 @@ COPY src ./src
 # build app for production with minification
 RUN npm run build
 
-EXPOSE 8080
+FROM caddy:2
 
-CMD [ "http-server", "dist" ]
+WORKDIR /app
+
+COPY --from=builder /app/dist dist
+
+WORKDIR /
+
+CMD [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile" ]

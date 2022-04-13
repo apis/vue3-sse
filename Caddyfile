@@ -1,18 +1,18 @@
 {
-	admin off
+        admin off
 }
 
 http://127.0.0.1:8070, http://localhost:8070 {
-	route /api/* {
-		uri strip_prefix /api
-		reverse_proxy  http://frontend-service:8090 {
-			header_up X-Real-IP {remote}
-		}
-	}
+        route /api/* {
+                uri strip_prefix /api
+                reverse_proxy  http://frontend-service:8090 {
+                        header_up X-Real-IP {remote}
+                }
+        }
 
-	route /* {
-		reverse_proxy  http://application:8080 {
-			header_up X-Real-IP {remote}
-		}
-	}
+        route /* {
+                file_server {
+                        root app/dist
+                }
+        }
 }
