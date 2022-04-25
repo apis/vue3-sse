@@ -24,4 +24,6 @@ COPY --from=builder /app/dist dist
 
 WORKDIR /
 
+COPY ./Caddyfile /etc/caddy/Caddyfile
+
 CMD [ "caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile" ]
