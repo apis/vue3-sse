@@ -1,0 +1,29 @@
+version: '3'
+services:
+  nats:
+    restart: on-failure:3
+    image: "nats:2"
+    command: --port 44222 --server_name MyServer
+    expose:
+      - "44222"
+  backend-service:
+    restart: on-failure:3
+    image: "ghcr.io/apis/vue3-sse/cloud-demo-backend-service:latest"
+    command: -nats_url nats://nats:44222
+    links:
+      - nats
+  frontend-service:
+    restart: on-failure:3
+    image: "ghcr.io/apis/vue3-sse/cloud-demo-frontend-service:latest"
+    command: -nats_url nats://nats:44222 -port 8090
+    expose:
+      - "8090"
+    links:
+      - nats
+  application:
+    restart: on-failure:3
+    image: "ghcr.io/apis/vue3-sse/cloud-demo-application:latest"
+    ports:
+      - "8080:8080"
+    links:
+      - frontend-service
